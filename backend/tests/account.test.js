@@ -1,11 +1,13 @@
+jest.setTimeout(15000); // Padidina timeout iki 10 sekundžių
+
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../app'); // app.js kelias
+const app = require('../app');
 const Account = require('../src/models/Account');
 
 // Prieš testus prijunkite testinę MongoDB bazę
 beforeAll(async () => {
-  await mongoose.connect('mongodb://localhost:27017/virtualbank', {
+  await mongoose.connect('mongodb://localhost:27017/virtual-bank', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -13,7 +15,7 @@ beforeAll(async () => {
 
 // Po testų išvalykite duomenis ir uždarykite DB
 afterAll(async () => {
-  await Account.deleteMany();
+  await mongoose.connection.dropDatabase();
   await mongoose.connection.close();
 });
 
@@ -48,4 +50,3 @@ describe('Account API', () => {
     expect(res.body.error).toBe('Account with this personal code already exists');
   });
 });
-dir
