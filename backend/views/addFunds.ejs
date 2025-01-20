@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Funds</title>
+</head>
+<body>
+  <h1>Add Funds</h1>
+  <form action="/api/accounts/addFunds" method="POST">
+    <input type="hidden" name="accountId" value="<%= accountId %>">
+    <label for="amount">Amount:</label>
+    <input type="number" name="amount" required>
+    <button type="submit">Add Funds</button>
+  </form>
+</body>
+</html>
